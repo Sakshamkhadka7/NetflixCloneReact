@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import databaseConnection from "./utils/database.js";
 import router from "./routes/userRoute.js";
-
+import cors from "cors"
 
 dotenv.config();        // Load env FIRST
 
@@ -14,6 +14,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+
 
 
 

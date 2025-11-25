@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Header from "./Header";
+import axios from "axios";
+import { API_END_POINT } from "../utils/constant";
 
 const Login = () => {
  
@@ -13,8 +15,33 @@ const Login = () => {
         setIsLogin(!islogin);
     }
 
-    const getInputData=(e)=>{
+    const getInputData =async (e)=>{
        e.preventDefault();
+       if(islogin){
+        // login
+         const user={email,password};
+         try {
+           const response=axios.post(`${API_END_POINT}/login`,user);
+           console.log(response);
+         } catch (error) {
+           console.log(error);
+         }
+
+       }else{
+        //register
+         const user={fullName,email,password};
+
+       try {
+        const resposne=await axios.post(`${API_END_POINT}/register`,user)
+        console.log(resposne);
+       } catch (error) { 
+         console.log(error);
+       }
+       }
+        
+
+      
+
        setFullName("");
        setEmail("");
        setPassword("");
