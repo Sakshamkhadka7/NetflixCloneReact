@@ -1,4 +1,5 @@
 import { User } from "../models/userModal.js";
+import bcryptjs from "bcryptjs";
 
 export const Register = async (req, res) => {
   try {
@@ -14,7 +15,12 @@ export const Register = async (req, res) => {
       return res.status(400).json({ message: "Email already used" });
     }
 
-    await User.create({ fullName, email, password });
+    const hashedPassword=await bcryptjs.hash(password,16);
+
+
+
+
+    await User.create({ fullName, email, password:hashedPassword });
 
     return res.status(201).json({ message: "Account created successfully" });
   } catch (error) {

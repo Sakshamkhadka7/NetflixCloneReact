@@ -15,9 +15,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+
+
+
 /// API
-
-
+app.use("/api/v1/user",router);
+//  http://localhost:8080/api/v1/user/   When router hit this then it call this
 
 const PORT = process.env.PORT || 8080;
 
