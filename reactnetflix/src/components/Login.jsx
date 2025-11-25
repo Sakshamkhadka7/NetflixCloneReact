@@ -24,8 +24,11 @@ const Login = () => {
     console.log(user);
     try {
       const response = await axios.post(`${API_END_POINT}/login`, user, { withCredentials: true });
-      console.log(response);
+       if(response.data.success){
+        toast.success(response.data.message);
+       }
     } catch (error) {
+      toast.error(error.response.data.message);
       console.log( error.message);
     }
   } else {
