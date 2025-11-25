@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Header from "./Header";
 import axios from "axios";
 import { API_END_POINT } from "../utils/constant";
-
+import toast from 'react-hot-toast'; 
 const Login = () => {
  
     const [islogin,setIsLogin]=useState(false);
@@ -15,39 +15,41 @@ const Login = () => {
         setIsLogin(!islogin);
     }
 
-    const getInputData =async (e)=>{
-       e.preventDefault();
-       if(islogin){
-        // login
-         const user={email,password};
-         try {
-           const response=axios.post(`${API_END_POINT}/login`,user);
-           console.log(response);
-         } catch (error) {
-           console.log(error);
-         }
+   const getInputData = async (e) => {
+  e.preventDefault();
 
-       }else{
-        //register
-         const user={fullName,email,password};
-
-       try {
-        const resposne=await axios.post(`${API_END_POINT}/register`,user)
-        console.log(resposne);
-       } catch (error) { 
-         console.log(error);
-       }
-       }
-        
-
-      
-
-       setFullName("");
-       setEmail("");
-       setPassword("");
-       console.log(fullName,email,password)   
-
+  if (islogin) {
+    // login
+    const user = { email, password };
+    console.log(user);
+    try {
+      const response = await axios.post(`${API_END_POINT}/login`, user, { withCredentials: true });
+      console.log(response);
+    } catch (error) {
+      console.log( error.message);
     }
+  } else {
+    // register
+    const user = { fullName, email, password };
+    console.log(user);
+    try {
+      const response = await axios.post(`${API_END_POINT}/register`, user, { withCredentials: true });
+      console.log(response);
+      if(response.data.success){
+        toast.success(response.data.message);
+      }
+
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log( error.message);
+    }
+  }
+
+  setFullName("");
+  setEmail("");
+  setPassword("");
+};
+
 
 
   return (

@@ -69,25 +69,26 @@ export const Register = async (req, res) => {
     const { fullName, email, password } = req.body;
 
     if (!fullName || !email || !password) {
-      return res.status(400).json({ message: "Invalid data" });
+      return res.status(400).json({ message: "Invalid data", success: false });
     }
 
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return res.status(400).json({ message: "Email already used" });
+      return res.status(400).json({ message: "Email already used", success: false });
     }
 
-    const hashedPassword=await bcryptjs.hash(password,16);
+    const hashedPassword = await bcryptjs.hash(password, 10);
 
+    await User.create({ fullName, email, password: hashedPassword });
 
-
-
-    await User.create({ fullName, email, password:hashedPassword });
-
-    return res.status(201).json({ message: "Account created successfully" });
+    return res.status(201).json({
+      message: "Account created successfully",
+      success: true
+    });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", success: false });
   }
 };
+
