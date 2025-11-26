@@ -4,6 +4,8 @@ import axios from "axios";
 import { API_END_POINT } from "../utils/constant";
 import toast from 'react-hot-toast'; 
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import { setUser } from "../redux/UserSlice";
 // import { application } from "express";
 // import { json } from "body-parser";
 const Login = () => {
@@ -13,6 +15,7 @@ const Login = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const navigate=useNavigate();
+     const dispatch=useDispatch();
     
 
     const loginHandler=()=>{
@@ -36,7 +39,7 @@ const Login = () => {
        if(response.data.success){
         toast.success(response.data.message);
        }
-
+        dispatch(setUser(response.data.user));
        navigate("/browse");
     } catch (error) {
       toast.error(error.response.data.message);
@@ -45,7 +48,7 @@ const Login = () => {
   } else {
     // register
     const user = { fullName, email, password };
-    console.log(user);
+  
     try {
       const response = await axios.post(`${API_END_POINT}/register`, user, { 
        headers:{
@@ -55,7 +58,7 @@ const Login = () => {
       },
       
     );
-      console.log(response);
+    
       if(response.data.success){
         toast.success(response.data.message);
       }
