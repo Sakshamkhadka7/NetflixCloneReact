@@ -42,7 +42,14 @@ export const Login = async (req, res) => {
       .cookie("token", token, { httpOnly: true })
       .json({
         message: `Welcome back ${user.fullName}`,
-        success: true
+        success: true,
+        secure:true,
+        sameSite:"none",
+        user:{
+         fullName:user.fullName,
+         email:user.email,
+         _id:user._id,
+        }
       });
 
   } catch (error) {

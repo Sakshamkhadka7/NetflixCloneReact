@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import React from 'react'
 
 const userSlice=createSlice({
-    name:"app",
+    name:"user",
     initialState:{
         user:null,
     },
