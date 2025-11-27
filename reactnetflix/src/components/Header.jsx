@@ -5,6 +5,7 @@ import axios from "axios";
 import { API_END_POINT } from "../utils/constant";
 import { setUser } from "../redux/UserSlice";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 const Header = () => {
   const user = useSelector((store) => store.user.user);
   const dispatch = useDispatch();
@@ -13,7 +14,9 @@ const Header = () => {
   const handleLogOut = async () => {
     try {
       const res = await axios.get(`${API_END_POINT}/logout`);
-      console.log(res);
+       if(res.data.success){
+            toast.success(res.data.message);
+       }
       dispatch(setUser(null));
       navigate("/");
     } catch (error) {
