@@ -4,10 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import MainContainer from "./MainContainer";
 import MovieContainer from "./MovieContainer";
-import axios from "axios";
-import { Now_Playing_Movie, options } from "../utils/constant";
-import { getNowPlayingMovies } from "../redux/MovieSlice";
 import { useNowPlaying } from "../hooks/useNowPlayingMovies";
+import UsePopularMovies from "../hooks/UsePopularMovies";
 
 const Browse = () => {
   const user = useSelector((store) => store.user.user);
@@ -17,7 +15,7 @@ const Browse = () => {
 
   // My Custom hooks 
   useNowPlaying();
- 
+  UsePopularMovies(); 
 
 
   useEffect(()=>{
