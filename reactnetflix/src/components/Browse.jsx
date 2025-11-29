@@ -6,6 +6,8 @@ import MainContainer from "./MainContainer";
 import MovieContainer from "./MovieContainer";
 import { useNowPlaying } from "../hooks/useNowPlayingMovies";
 import UsePopularMovies from "../hooks/UsePopularMovies";
+import UseTopRatedMovies from "../hooks/UseTopRatedMovies";
+import UseUpComingMovies from "../hooks/UseUpComingMovies";
 
 const Browse = () => {
   const user = useSelector((store) => store.user.user);
@@ -16,6 +18,8 @@ const Browse = () => {
   // My Custom hooks 
   useNowPlaying();
   UsePopularMovies(); 
+  UseTopRatedMovies();
+  UseUpComingMovies();
 
 
   useEffect(()=>{

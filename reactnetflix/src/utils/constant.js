@@ -11,3 +11,7 @@ export const options = {
   }
 };
 
+
+export const Popular_Movie="https://api.themoviedb.org/3/movie/popular";
+export const Top_Rated_Movies="https://api.themoviedb.org/3/movie/top_rated";
+export const UpComing_Movie="https://api.themoviedb.org/3/movie/upcoming";
